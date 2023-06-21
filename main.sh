@@ -11,3 +11,10 @@ create_student() {
     echo "Student record created."
 }
 
+view_students() {
+	if [ -s "$students_file" ]; then
+		cat $students_file
+	else
+		echo "No students found."
+	fi
+}
