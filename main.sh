@@ -28,4 +28,52 @@ delete_student() {
         echo "Student not found."
     fi
 }
+update_student() {
+    read -p "Enter student ID to update: " student_id
+    if grep -q "^.* $student_id\$" "$students_file"; then
+        read -p "Enter updated email: " email
+        read -p "Enter updated age: " age
 
+        sed -i "/^.* $student_id\$/d" "$students_file"
+        echo "$email $age $student_id" >> "$students_file"
+        echo "Student updated."
+    else
+        echo "Student not found."
+    fi
+}
+
+while true
+do
+    echo "----- Bachelor of Software Engineering Cohort List -----"
+    echo "1. Create student record"
+    echo "2. View all students"
+    echo "3. Delete student"
+    echo "4. Update student record"
+    echo "5. Exit"
+
+    read -p "Enter your choice (1-5): " choice
+
+    case $choice in
+        1)
+            create_student
+            ;;
+        2)
+            view_students
+            ;;
+        3)
+            delete_student
+            ;;
+        4)
+            update_student
+            ;;
+        5)
+            echo "Exiting the application."
+            exit
+            ;;
+        *)
+            echo "Invalid choice. Please enter a number from 1 to 5."
+            ;;
+    esac
+
+    echo "-----------------------------------------------------"
+done
