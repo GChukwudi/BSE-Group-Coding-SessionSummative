@@ -18,3 +18,14 @@ view_students() {
 		echo "No students found."
 	fi
 }
+
+delete_student() {
+    read -p "Enter student ID to delete: " student_id
+    if grep -q "^.* $student_id\$" "$students_file"; then
+        sed -i "/^.* $student_id\$/d" "$students_file"
+        echo "Student deleted."
+    else
+        echo "Student not found."
+    fi
+}
+
